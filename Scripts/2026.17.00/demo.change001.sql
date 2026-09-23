@@ -1,0 +1,5 @@
+CREATE TABLE DEMOTABLE
+(
+id INT,
+Name varchar(200)
+)

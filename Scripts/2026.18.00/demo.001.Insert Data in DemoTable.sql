@@ -1,0 +1,3 @@
+INSERT INTO DEMOTABLE (Id, Name) VALUES (1, 'John Doe');
+INSERT INTO DEMOTABLE (Id, Name) VALUES (2, 'Jane Smith');
+INSERT INTO DEMOTABLE (Id, Name) VALUES (3, 'Bob Johnson');
