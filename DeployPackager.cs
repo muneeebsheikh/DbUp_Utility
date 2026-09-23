@@ -182,21 +182,10 @@ internal static class DeployPackager
         int sequence)
     {
         var packStage = Path.Combine(stageRoot, $"{sequence:D4}_{pack.Sprint}_{pack.PbiFolder}");
-        var eOrderJsonPath = Path.GetFullPath(Path.Combine($"{pack.Sprint}/{pack.PbiFolder}", "eorder.json"));
         var spDir = Path.Combine(packStage, "sp");
         var scriptsDir = Path.Combine(packStage, "scripts");
         Directory.CreateDirectory(spDir);
         Directory.CreateDirectory(scriptsDir);
-
-        if (!File.Exists(eOrderJsonPath))
-        {
-            throw new Exception($"eorder.json not found for pack {pack.PbiFolder} in sprint {pack.Sprint} - Path: {eOrderJsonPath}");
-        }
-
-        var eOrderJson = File.ReadAllText(eOrderJsonPath);
-        var generatedJson = ExecutionGroup.GenerateArtifactExecutionConfig(eOrderJson);
-        File.WriteAllText(
-        Path.Combine(stageRoot, "eOrder.json"), generatedJson);
 
         var spNames = pack.CreatedSpNames.Concat(pack.AlteredSpNames).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
         var spIndex = 0;
@@ -252,8 +241,6 @@ internal static class DeployPackager
             throw new InvalidOperationException(
                 $"Refusing to treat {pack.PbiFolder} as success: Created/Altered SPs listed but none staged.");
         }
-
-        
 
         return packStage;
     }
